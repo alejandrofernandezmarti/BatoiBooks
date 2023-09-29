@@ -17,9 +17,10 @@ function booksWithStatus(array, string){
 } // : array: recibe el array de libros y un estado ("new", "good", ...) y devuelve el array con todos los libros de dicho estado
 
 function averagePriceOfBooks(array){
-    let media = array.reduce((total,array) => total + array,0);
+    if (array.length < 1){return '0 €'}
+    let media = array.reduce((total, array) => total += array.price, 0);
     media = media / array.length;
-    return media.toFixed(2)
+    return media.toFixed(2) + " €";
 } //: string: recibe el array de libros y devuelve el precio medio de los mismos, con 2 decimales y el símbolo del € (ej.: "23.40 €")
 
 function booksOfTypeNote(array){
@@ -35,13 +36,13 @@ function booksNotSold(array){
 } //: array: recibe el array de libros y devuelve un array con todos los que NO se han vendido aún
 
 function incrementPriceOfbooks(array, number){
-    array.map(function (number){
-        return array.price * (1 + number)
-    })
+    array.map(array =>
+    array.price = array.price + (array.price * number))
+    return array;
 } //: undefined: recibe el array de libros y el porcentaje a incrementar (ej. 0,1 == 10%) e incrementa su precio (no devuelve nada)
 
 function getUserById(array, number){
- //   return array.filter(array => array.id === number)
+    return array.filter(array => array.id === number)
 } //: object: recibe el array de usuarios y una id y devuelve el usuario con dicha id
 
 function getUserIndexById(array, number){
