@@ -43,6 +43,8 @@ console.log(palindromo(cadena)) */
 
 // console.log(booksFromUser(data.books,2))
 console.log(averagePriceOfBooks(data.books))
+console.log(getUserById(data.users,2))
+
 
 
 
