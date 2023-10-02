@@ -17,7 +17,6 @@ import {
   getModuleIndexByCode
 } from './scripts/functions.js'
 
-
 document.querySelector('#app').innerHTML = `
     <div>
     <a href="https://vitejs.dev" target="_blank">
@@ -33,18 +32,17 @@ document.querySelector('#app').innerHTML = `
   </div>
 `
 
-/* console.log(cadena)
-console.log(letters(cadena) + " letras y "+words(cadena) + " palabras")
-console.log(upperString(cadena))
-console.log(titleString(cadena))
-console.log(backwardsLetters(cadena))
-console.log(backwardsWords(cadena))
-console.log(palindromo(cadena)) */
-
-// console.log(booksFromUser(data.books,2))
+console.log(booksFromUser(data.books,22))
+console.log(booksFromModule(data.books,3))
+console.log(booksCheeperThan(data.books,100))
+console.log(booksWithStatus(data.books,'good'))
 console.log(averagePriceOfBooks(data.books))
+console.log(booksOfTypeNote(data.books))
+console.log(booksNotOfTypeNote(data.books))
+console.log(booksNotSold(data.books))
+console.log(incrementPriceOfbooks(data.books,0.5))
 console.log(getUserById(data.users,2))
-
-
-
-
+console.log(getUserIndexById(data.users,2))
+console.log(getUserByNickName(data.users,'Maria'))
+console.log(getModuleByCode(data.modules,'DWES'))
+console.log(getModuleIndexByCode(data.modules,2))

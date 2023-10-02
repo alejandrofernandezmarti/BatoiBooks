@@ -81,8 +81,6 @@ function getModuleIndexByCode(modulos, code){
     return -1;
 } //: object: igual pero devuelve la posición del módulo dentro del array modules
 
-
-
 export  {
     booksFromUser,
     booksFromModule,
