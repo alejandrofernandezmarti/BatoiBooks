@@ -42,6 +42,7 @@ function incrementPriceOfbooks(books, number){
 } //: undefined: recibe el array de libros y el porcentaje a incrementar (ej. 0,1 == 10%) e incrementa su precio (no devuelve nada)
 
 function getUserById(usuarios, number){
+    // return usuarios.find(item)=> item.id === number) || {};
      if (usuarios.filter(usuarios => usuarios.id === number).length > 0){
          let coincidencias = usuarios.filter(usuarios => usuarios.id === number);
          return coincidencias[0];
@@ -50,6 +51,7 @@ function getUserById(usuarios, number){
 } //: object: recibe el array de usuarios y una id y devuelve el usuario con dicha id
 
 function getUserIndexById(usuarios, id){
+    // return usuarios.findIndex(item)=> item.id === number);
     for (let i = 0; i < usuarios.length; i++) {
         if (usuarios[i].id === id){
             return i;

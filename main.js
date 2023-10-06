@@ -1,21 +1,12 @@
 import './style.css'
-import data from "./datos.js"
-import {
-  booksFromUser,
-  booksFromModule,
-  booksCheeperThan,
-  booksWithStatus,
-  averagePriceOfBooks,
-  booksOfTypeNote,
-  booksNotOfTypeNote,
-  booksNotSold,
-  incrementPriceOfbooks,
-  getUserById,
-  getUserIndexById,
-  getUserByNickName,
-  getModuleByCode,
-  getModuleIndexByCode
-} from './scripts/functions.js'
+import data from './datos.js'
+
+import Users from "./src/model/users.class.js";
+import datos from "./datos.js";
+import Modules from "./src/model/modules.class.js";
+import Books from "./src/model/books.class.js";
+
+
 
 document.querySelector('#app').innerHTML = `
     <div>
@@ -31,18 +22,12 @@ document.querySelector('#app').innerHTML = `
     </p>
   </div>
 `
-
-console.log(booksFromUser(data.books,22))
-console.log(booksFromModule(data.books,3))
-console.log(booksCheeperThan(data.books,100))
-console.log(booksWithStatus(data.books,'good'))
-console.log(averagePriceOfBooks(data.books))
-console.log(booksOfTypeNote(data.books))
-console.log(booksNotOfTypeNote(data.books))
-console.log(booksNotSold(data.books))
-console.log(incrementPriceOfbooks(data.books,0.5))
-console.log(getUserById(data.users,2))
-console.log(getUserIndexById(data.users,2))
-console.log(getUserByNickName(data.users,'Maria'))
-console.log(getModuleByCode(data.modules,'DWES'))
-console.log(getModuleIndexByCode(data.modules,2))
+let users = new Users();
+users.populateData(datos.users)
+let modules = new Modules()
+modules.populateData( datos.modules)
+let books = new Books();
+books.populateData(datos.books)
+console.log(books.booksFromModule('5021'))
+let booksFilter = books.booksFromModule('5025')
+console.log(booksFilter.incrementPriceOfbooks(0.1))

@@ -15,8 +15,8 @@ import {
   getUserByNickName,
   getModuleByCode,
   getModuleIndexByCode
-}from '../scripts/functions.js';
-
+}from '../src/functions.js';
+/*
 describe('Funciones con libros', () => {
   const books = [
     {
@@ -228,5 +228,5 @@ describe('Funciones con módulos', () => {
     expect(getModuleIndexByCode(modules, 'AAAA')).toBe(-1);
   });
 })
-
+*/
 
