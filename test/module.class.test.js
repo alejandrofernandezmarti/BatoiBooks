@@ -1,7 +1,7 @@
 import { describe, test, expect } from 'vitest'
 import Module from '../src/model/module.class'
 
-describe('Clase ModuleClass', () => {
+describe('Clase Module', () => {
   test('constructor crea un módulo', () => {
     const newModule = new Module('ABCD', 'Nuevo módulo', 'Nou mòdul', '12')
     expect(newModule).toEqual({

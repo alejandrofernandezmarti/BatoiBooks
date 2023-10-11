@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import Book from '../src/'
+import Book from '../src/model/book.class'
 
 const payloadSold = {
   id: 31,
