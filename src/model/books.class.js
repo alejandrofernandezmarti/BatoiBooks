@@ -1,6 +1,7 @@
 import Book from "./book.class.js";
-
+const server = " http://localhost:3000";
 export default class Books {
+
     constructor() {
         this.data = []
     }
@@ -18,12 +19,16 @@ export default class Books {
         }
         return {};
     }
-    populateData(datos){
+    populateData(){
+        let datos = this.getBooks();
         datos.forEach((book) => {
             let newBook = new Book(book.id,book.idUser,book.idModule,book.publisher,book.price,book.pages,book.status,book.soldDate)
             this.data.push(newBook);
         })
         return this.data;
+    }
+    async getBooks(){
+        return  await fetch(server);
     }
     calcularId(){
         let maxIndex = 0;
