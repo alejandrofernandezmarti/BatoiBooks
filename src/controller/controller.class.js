@@ -14,8 +14,13 @@ export default class Controller {
 
     async init() {
         await this.books.populateData();
+        await this.users.populateData()
+        await this.modules.populateData()
 
-        this.view.remove.addEventListener('click',async (event) => {
+        this.view.renderOptionsModule(this.modules.data)
+        this.view.renderNewBook(this.books.data[0])
+
+      /*  this.view.remove.addEventListener('click',async (event) => {
             // Aquí poned el código que
             // - pedirá al usuario que introduzca la id de un libro
             // - la validará
@@ -29,16 +34,16 @@ export default class Controller {
                 this.view.renderMessage('error',error) // crear método en la vista
             }
             this.view.renderDeleteBook();
-        })
+        }) */
 
-        this.view.bookForm.addEventListener('submit', (event) => {
+       /* this.view.bookForm.addEventListener('submit', (event) => {
             event.preventDefault()
             // Aquí poned el código que
             // - cogerá los datos del formulario
             // - los validará
             // - pedirá al modelo que añada ese libro
             // - una vez hecho lo añadirá a la vista y borrará el formulario
-        })
+        }) */
     }
 
     addProductToStore(prod) {

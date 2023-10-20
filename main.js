@@ -18,12 +18,11 @@ document.querySelector('#app').innerHTML = `
   </ul>
 </nav>
 <div>
-<div id="list"> </div>
-<div id="form"> </div>
-<div id="about"> </div>
+<div id="list"> 
+    
 </div>
-<button id="remove">Borrar libro</button>
-<form id="bookForm">
+<div id="form"> 
+    <form id="bookForm">
   <div>
     <label for="id-module">Módulo:</label>
     <select id="id-module">
@@ -59,6 +58,11 @@ document.querySelector('#app').innerHTML = `
   <button type="submit">Añadir</button>
   <button type="reset">Reset</button>
 </form>
+</div>
+<div id="about"> </div>
+</div>
+<button id="remove">Borrar libro</button>
+
     
   
 `

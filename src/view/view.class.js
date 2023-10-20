@@ -20,6 +20,23 @@ export default class ViewClass {
             DOMselect.innerHTML += `<option value=${module.code}>${module.cliteral}</option>`
         })*/
     }
+    renderNewBook(book){
+        const DOMselect = document.getElementById('list')
+
+        const DOMdiv = document.createElement('div')
+        DOMdiv.innerHTML = `<img src="${book.id}" alt="Libro: "${book.id}>
+            <div>
+              <h5>${book.cliteral}</h5> 
+             <h6>${book.publisher}</h6>
+              <p>Precio: ${book.price}</p> 
+              <p>Páginas: ${book.pages}</p> 
+              <p>Estado: ${book.status}</p>
+              <p>En venta // Vendido el 21/12/2023</p>
+              <p>Comentarios: ${book.comments}</p>
+            </div>`
+        DOMselect.appendChild(DOMdiv)
+
+    }
 
     renderDeleteBook(id){
         const DOMbook = document.getElementById('book o como se llame')
