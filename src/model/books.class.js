@@ -37,6 +37,7 @@ export default class Books {
         return new Book(this.bookRepository.getBookById(id))
 
     }
+
     getInfo(){
         return this.data.forEach((Book) =>{ Book.getInfo()})
     }
