@@ -1,16 +1,30 @@
-import Book from "./book.class.js";
-const server = " http://localhost:3000";
+import Book from "./book.class";
+import BooksRepository from "../repositories/books.repository"
 export default class Books {
 
     constructor() {
         this.data = []
+        this.bookRepository = new BooksRepository();
     }
-    addItem(book){
-        let newBook =new Book(this.calcularId(),book.idUser,book.idModule,book.publisher,book.price,book.pages,book.status,book.soldDate)
+    async populateData(){
+        let books = await this.bookRepository.getAllBooks()
+        books.forEach((book) => {
+            let newBook = new Book(book)
+            this.data.push(newBook);
+        })
+        return this.data;
+    }
+    async addItem(book){
+        await this.bookRepository.addBook(book)
+        let newBook = new Book(book)
         this.data.push(newBook);
         return newBook;
     }
-    removeItem(id){
+
+
+
+    async removeItem(id){
+        await this.bookRepository.removeBook(id)
         let index = this.data.findIndex(Book => Book.id === id);
         if (index >= 0){
             this.data.splice(index)
@@ -19,36 +33,18 @@ export default class Books {
         }
         return {};
     }
-    populateData(){
-        let datos = this.getBooks();
-        datos.forEach((book) => {
-            let newBook = new Book(book.id,book.idUser,book.idModule,book.publisher,book.price,book.pages,book.status,book.soldDate)
-            this.data.push(newBook);
-        })
-        return this.data;
-    }
-    async getBooks(){
-        return  await fetch(server);
-    }
-    calcularId(){
-        let maxIndex = 0;
-        this.data.forEach((book) => {
-            if (maxIndex <= book.id){
-                maxIndex = book.id
-            }
-        })
-        return maxIndex + 1;
-    }
     getItemById(Id){
-        return this.data.find((Book) => Book.id === Id )|| {}
+        return new Book(this.bookRepository.getBookById(id))
+
     }
     getInfo(){
         return this.data.forEach((Book) =>{ Book.getInfo()})
     }
     incrementPriceOfbooks(number){
-        this.data.map(array =>
-            array.price = array.price + (array.price * number))
-        return this.data;
+        this.data.map(async (book) => {
+            let newBook = await this.bookRepository.updatePriceOfBook(book.id, book.price + book.price * number )
+            book.price = newBook.price
+        })
     }
     booksFromUser(idUsuario){
         const filteredData = new Books();

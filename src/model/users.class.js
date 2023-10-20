@@ -1,32 +1,28 @@
 import User from "./user.class.js";
 import datos from "../../datos.js";
+import UsersRepository from "../repositories/users.repository.js";
 
 export default class UsersClass {
     constructor() {
         this.data = [];
+        this.usersRepository = new UsersRepository;
     }
-    populateData(datos){
-        datos.forEach((item) => {
+    async populateData(){
+        let users =  await this.usersRepository.getAllUsers();
+        users.forEach((item) => {
             let newUser = new User(item.id,item.email,item.nick)
             this.data.push(newUser);
         })
         return this.data;
     }
-    addItem(user){
-        let newUser = new User(this.calcularId(),user.email,user.nick)
+    async addItem(user){
+        let newUser = new User(await this.usersRepository.addUser(user))
         this.data.push(newUser);
         return newUser;
     }
-    calcularId(){
-        let maxIndex = 0;
-        this.data.forEach((user) => {
-            if (maxIndex < user.id){
-                maxIndex = user.id
-            }
-        })
-        return maxIndex + 1;
-    }
-    removeItem(id){
+
+    async removeItem(id){
+        await this.usersRepository.removeUser(id)
         let index = this.data.findIndex(User => User.id === id);
         if (index >= 0){
             this.data.splice(index)
