@@ -1,49 +1,68 @@
 import './style.css'
-import Users from "./src/model/users.class.js";
-import Modules from "./src/model/modules.class.js";
-import Books from "./src/model/books.class.js";
-
-
+import Controller from "./src/controller/controller.class.js";
 
 document.querySelector('#app').innerHTML = `
+<header>
+
+</header>
     <div>
     <a href="https://vitejs.dev" target="_blank">
       <img src="/logoBatoi.png" class="logo" alt="Vite logo" />
     </a>
-    <h1>Batoi Books</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
     </div>
-    <p class="read-the-docs">
-      Abre la consola para ver los resultados
-    </p>
+    <nav>
+  <ul>
+    <li><a href="#list">Ver Libros</a></li>
+    <li><a href="#form">Añadir Libro</a></li>
+    <li><a href="#about">Acerca de...</a></li>
+  </ul>
+</nav>
+<div>
+<div id="list"> </div>
+<div id="form"> </div>
+<div id="about"> </div>
+</div>
+<button id="remove">Borrar libro</button>
+<form id="bookForm">
+  <div>
+    <label for="id-module">Módulo:</label>
+    <select id="id-module">
+      <option>- Selecciona un módulo -</option>
+    </select><br>
   </div>
+
+  <div>
+    <label for="publisher">Editorial:</label>
+    <input type="text" id="publisher" required><br>
+  </div>
+
+  <div>
+    <label for="price">Precio:</label>
+    <input type="number" id="price"><br>
+  </div>
+
+  <div>
+    <label for="pages">Páginas:</label>
+    <input type="number" id="pages"><br>
+  </div>
+
+  <div>
+    <label>Estado:</label>
+    <!-- Aquí poned un radiobutton para cada estado -->
+  </div>
+
+  <div>
+    <label for="comments">Comentarios:</label>
+    <textarea id="comments"></textarea>
+  </div>
+
+  <button type="submit">Añadir</button>
+  <button type="reset">Reset</button>
+</form>
+    
+  
 `
-
-async function main() {
-    let users = new Users();
-    await users.populateData()
-
-    let modules = new Modules()
-    await modules.populateData()
-    let books = new Books();
-    await books.populateData()
-
-
-    let book5021 = books.booksFromModule('5021')
-    let book4 = books.booksFromUser(4)
-    let book5025 = books.booksFromModule('5025')
-    book5025.incrementPriceOfbooks(0.1)
-
-
-    console.log(book4)
-    console.log(book5021)
-    console.log(book5025)
-
-
-    console.log(users.data[0])
-    console.log(modules.data[0])
-
-    console.log(books.data)
-}
-main()
+document.addEventListener('DOMContentLoaded', () => {
+    const myController = new Controller()
+    myController.init()
+})
