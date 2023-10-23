@@ -19,8 +19,7 @@ export default class Books {
         }
         return {};
     }
-    populateData(){
-        let datos = this.getBooks();
+    populateData(datos){
         datos.forEach((book) => {
             let newBook = new Book(book.id,book.idUser,book.idModule,book.publisher,book.price,book.pages,book.status,book.soldDate)
             this.data.push(newBook);
