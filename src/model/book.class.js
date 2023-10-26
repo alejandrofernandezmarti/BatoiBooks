@@ -8,6 +8,7 @@ export default class Book{
         this.price = book.price;
         this.pages = book.pages;
         this.status = book.status;
+        this.comments = book.comments;
         this.soldDate = book.soldDate || "";
     }
     getInfo(){

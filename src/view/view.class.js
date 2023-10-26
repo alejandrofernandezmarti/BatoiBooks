@@ -3,7 +3,8 @@ export default class ViewClass {
     constructor() {
         this.list = document.getElementById('list')
         this.messages = document.getElementById('message')
-        // this.bookForm =
+        this.bookForm = document.getElementById('bookForm')
+        this.remove = document.getElementById('remove')
     }
     renderOptionsModule(modules){
         const DOMselect = document.getElementById('id-module')
@@ -22,31 +23,32 @@ export default class ViewClass {
     }
     renderNewBook(book){
         const DOMselect = document.getElementById('list')
-
         const DOMdiv = document.createElement('div')
-        DOMdiv.innerHTML = `<img src="${book.id}" alt="Libro: "${book.id}>
-            <div>
-              <h5>${book.cliteral}</h5> 
-             <h6>${book.publisher}</h6>
+        DOMdiv.id = 'book-'+book.id;
+        DOMdiv.innerHTML = `
+            <img src="${book.id}" alt="Libro: "${book.id}>
+              <h5>ID ${book.id}</h5> 
+              <h5>${book.idModule}</h5> 
+              <h6>${book.publisher}</h6>
               <p>Precio: ${book.price}</p> 
               <p>Páginas: ${book.pages}</p> 
               <p>Estado: ${book.status}</p>
-              <p>En venta // Vendido el 21/12/2023</p>
+              <p>En venta </p>
               <p>Comentarios: ${book.comments}</p>
-            </div>`
+              `
         DOMselect.appendChild(DOMdiv)
 
     }
 
     renderDeleteBook(id){
-        const DOMbook = document.getElementById('book o como se llame')
+        const DOMbook = document.getElementById('book-'+id)
         DOMbook.parentElement.removeChild(DOMbook)
     }
     renderMessage(type,message){
         const DOMnewMessage = document.createElement('div')
         DOMnewMessage.innerHTML = `${message} <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="this.parentElement.remove()"> `
         DOMnewMessage.className  = type + "alert alert-danger alert-dismissible"
-        // DOMnewMessage.role = "alert"
+        // DOMnewMessage.role = "alert" () same as next line
         DOMnewMessage.setAttribute('role',"alert")
 
         this.messages.appendChild(DOMnewMessage)

@@ -13,6 +13,11 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+.bookData{
+  background-color: #84d0ff;
+  border-radius: 30px;
+  border: solid blue 2px;
+}
 
 a {
   font-weight: 500;
@@ -92,6 +97,7 @@ button:focus-visible {
     color: #747bff;
   }
   button {
-    background-color: #f9f9f9;
+    background-color: #9ca7ad;
+    border: solid 2px ;
   }
 }

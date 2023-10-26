@@ -8,7 +8,6 @@ export default class Controller {
         this.books = new Books()
         this.modules = new Modules();
         this.users = new UsersClass();
-
         this.view = new ViewClass();
     }
 
@@ -18,32 +17,48 @@ export default class Controller {
         await this.modules.populateData()
 
         this.view.renderOptionsModule(this.modules.data)
-        this.view.renderNewBook(this.books.data[0])
+        this.books.data.forEach((book) => {
+        this.view.renderNewBook(book)
+        })
 
-      /*  this.view.remove.addEventListener('click',async (event) => {
-            // Aquí poned el código que
-            // - pedirá al usuario que introduzca la id de un libro
-            // - la validará
-            // - le pedirá al modelo que borre ese libro
-            // - una vez hecho lo borrará de la vista
 
-            const bookId = prompt('Introduce una ID')
-            try {
-                await this.books.removeItem(bookId)
-            }catch (error){
-                this.view.renderMessage('error',error) // crear método en la vista
-            }
-            this.view.renderDeleteBook();
-        }) */
+        this.view.remove.addEventListener('click',async (event) => {
+              // Aquí poned el código que
+              // - pedirá al usuario que introduzca la id de un libro
+              // - la validará
+              // - le pedirá al modelo que borre ese libro
+              // - una vez hecho lo borrará de la vista
 
-       /* this.view.bookForm.addEventListener('submit', (event) => {
+              const bookId = prompt('Introduce una ID')
+              try {
+                  await this.books.removeItem(bookId)
+              }catch (error){
+                  this.view.renderMessage('error',error) // crear método en la vista
+                  return
+              }
+              this.view.renderDeleteBook(bookId);
+          })
+
+        this.view.bookForm.addEventListener('submit',async (event) => {
             event.preventDefault()
             // Aquí poned el código que
             // - cogerá los datos del formulario
-            // - los validará
             // - pedirá al modelo que añada ese libro
             // - una vez hecho lo añadirá a la vista y borrará el formulario
-        }) */
+            let idModule = this.view.bookForm.elements['id-module'].value
+            let publisher = this.view.bookForm.elements['publisher'].value
+            let price = this.view.bookForm.elements['price'].value
+            let pages =this.view.bookForm.elements['pages'].value
+            let status = this.view.bookForm.querySelector('input[name="bookStat"]:checked').value;
+            let comments = this.view.bookForm.elements['comments'].value
+
+            const newBook = await this.books.addItem({
+                idUser: 2, idModule: idModule, publisher: publisher, price ,pages,status,photo: "",comments,soldDate: ""
+            })
+            document.forms[0].reset()
+            this.view.renderNewBook(newBook)
+
+        })
     }
 
     addProductToStore(prod) {

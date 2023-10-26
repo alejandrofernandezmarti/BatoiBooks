@@ -25,7 +25,7 @@ export default class Books {
 
     async removeItem(id){
         await this.bookRepository.removeBook(id)
-        let index = this.data.findIndex(Book => Book.id === id);
+        let index = this.data.findIndex(Book => Book.id == id);
         if (index >= 0){
             this.data.splice(index)
         }else {

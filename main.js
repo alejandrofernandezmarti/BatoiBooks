@@ -21,6 +21,10 @@ document.querySelector('#app').innerHTML = `
 <div id="list"> 
     
 </div>
+
+<br>
+<button id="remove">Borrar libro</button>
+
 <div id="form"> 
     <form id="bookForm">
   <div>
@@ -37,17 +41,24 @@ document.querySelector('#app').innerHTML = `
 
   <div>
     <label for="price">Precio:</label>
-    <input type="number" id="price"><br>
+    <input type="number" id="price" required><br>
   </div>
 
   <div>
     <label for="pages">Páginas:</label>
-    <input type="number" id="pages"><br>
+    <input type="number" id="pages" required><br>
   </div>
 
   <div>
+  
     <label>Estado:</label>
-    <!-- Aquí poned un radiobutton para cada estado -->
+    <input type="radio" id="nuevo" name="bookStat" value="Nuevo" required>
+        <label for="nuevo">Nuevo</label>
+    <input type="radio" name="bookStat" id="usado" value="Usado">
+        <label for="usado">Usado</label>
+    <input type="radio" name="bookStat" id="roto" value="Roto">
+        <label for="roto">Roto</label>
+
   </div>
 
   <div>
@@ -61,12 +72,12 @@ document.querySelector('#app').innerHTML = `
 </div>
 <div id="about"> </div>
 </div>
-<button id="remove">Borrar libro</button>
+
 
     
   
 `
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const myController = new Controller()
-    myController.init()
+    await myController.init()
 })
