@@ -46,7 +46,7 @@ export default class ViewClass {
     }
     renderMessage(type,message){
         const DOMnewMessage = document.createElement('div')
-        DOMnewMessage.innerHTML = `${message} <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="this.parentElement.remove()"> `
+        DOMnewMessage.innerHTML = `${message} <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="this.parentElement.remove()">x</button> `
         DOMnewMessage.className  = type + "alert alert-danger alert-dismissible"
         // DOMnewMessage.role = "alert" () same as next line
         DOMnewMessage.setAttribute('role',"alert")

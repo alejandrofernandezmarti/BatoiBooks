@@ -29,7 +29,7 @@ export default class Books {
         if (index >= 0){
             this.data.splice(index)
         }else {
-            throw new SQLException("No se ha encontrado el id");
+            throw new Error("No se ha encontrado el id");
         }
         return {};
     }

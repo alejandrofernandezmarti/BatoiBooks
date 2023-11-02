@@ -65,6 +65,7 @@ document.querySelector('#app').innerHTML = `
     <label for="comments">Comentarios:</label>
     <textarea id="comments"></textarea>
   </div>
+  <div id="message"></div>
 
   <button type="submit">Añadir</button>
   <button type="reset">Reset</button>
