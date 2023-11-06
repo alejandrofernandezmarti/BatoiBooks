@@ -15,8 +15,7 @@ export default class Books {
         return this.data;
     }
     async addItem(book){
-        await this.bookRepository.addBook(book)
-        let newBook = new Book(book)
+        let newBook = await this.bookRepository.addBook(book)
         this.data.push(newBook);
         return newBook;
     }
@@ -33,8 +32,8 @@ export default class Books {
         }
         return {};
     }
-    getItemById(Id){
-        return new Book(this.bookRepository.getBookById(id))
+    async getItemById(Id){
+        return await this.bookRepository.getBookById(Id)
 
     }
 

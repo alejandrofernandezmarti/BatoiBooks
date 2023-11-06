@@ -2,6 +2,15 @@ import './style.css'
 import Controller from "./src/controller/controller.class.js";
 
 document.querySelector('#app').innerHTML = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Título de la página</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
 <header>
 
 </header>
@@ -23,7 +32,6 @@ document.querySelector('#app').innerHTML = `
 </div>
 
 <br>
-<button id="remove">Borrar libro</button>
 
 <div id="form"> 
     <form id="bookForm">
@@ -73,7 +81,8 @@ document.querySelector('#app').innerHTML = `
 </div>
 <div id="about"> </div>
 </div>
-
+</body>
+</html>
 
     
   

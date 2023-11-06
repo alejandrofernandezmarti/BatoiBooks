@@ -1,6 +1,7 @@
 import Books from "../model/books.class.js";
 import Modules from "../model/modules.class.js";
 import UsersClass from "../model/users.class.js";
+import Cart from "../model/cart.class.js";
 import ViewClass from "../view/view.class.js";
 
 export default class Controller {
@@ -9,6 +10,7 @@ export default class Controller {
         this.modules = new Modules();
         this.users = new UsersClass();
         this.view = new ViewClass();
+        this.carrito = new Cart()
     }
 
     async init() {
@@ -18,11 +20,15 @@ export default class Controller {
 
         this.view.renderOptionsModule(this.modules.data)
         this.books.data.forEach((book) => {
-        this.view.renderNewBook(book)
+        let element = this.view.renderNewBook(book)
+            this.addButtonListeners(element,book.id)
+
         })
 
 
-        this.view.remove.addEventListener('click',async (event) => {
+
+
+        /* this.view.remove.addEventListener('click',async (event) => {
               // Aquí poned el código que
               // - pedirá al usuario que introduzca la id de un libro
               // - la validará
@@ -37,7 +43,7 @@ export default class Controller {
                   return
               }
               this.view.renderDeleteBook(bookId);
-          })
+          })  */
 
         this.view.bookForm.addEventListener('submit',async (event) => {
             event.preventDefault()
@@ -56,20 +62,37 @@ export default class Controller {
                 idUser: 2, idModule: idModule, publisher: publisher, price ,pages,status,photo: "",comments,soldDate: ""
             })
             document.forms[0].reset()
-            this.view.renderNewBook(newBook)
+            let divBook = this.view.renderNewBook(newBook)
+            this.addButtonListeners(divBook,newBook.id)
 
         })
     }
 
-    addProductToStore(prod) {
-        // haría las comprobaciones necesarias sobre los datos y luego
-        const newProd = this.productStore.addProduct(prod);	// dice al modelo que añada el producto
-        if (newProd) {
-            this.storeView.renderNewProduct(newProd);		// si lo ha hecho le dice a la vista que lo pinte
-        } else {
-            this.storeView.showErrorMessage('error', 'Error al añadir el producto');
-        }
+    addButtonListeners(element,bookId){
+        element.querySelector('.delete').addEventListener('click',async () =>{
+            try {
+                await this.books.removeItem(bookId)
+            }catch (error){
+                this.view.renderMessage('error',error) // crear método en la vista
+                return
+            }
+            this.view.renderDeleteBook(bookId);
+        })
+        element.querySelector('.add').addEventListener('click', async () => {
+            let newBook = await this.books.getItemById(bookId)
+            this.carrito.addItem(newBook)
+        })
     }
+
+    addProductToStore(prod) {
+            // haría las comprobaciones necesarias sobre los datos y luego
+            const newProd = this.productStore.addProduct(prod);	// dice al modelo que añada el producto
+            if (newProd) {
+                this.storeView.renderNewProduct(newProd);		// si lo ha hecho le dice a la vista que lo pinte
+            } else {
+                this.storeView.showErrorMessage('error', 'Error al añadir el producto');
+            }
+        }
 
     // También se incluirían los métodos escuchadores para las acciones del usuario
     // sobre la página. Por ejemplo pondrá un escuchador en el formulario para que

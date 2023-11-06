@@ -24,9 +24,10 @@ export default class ViewClass {
     renderNewBook(book){
         const DOMselect = document.getElementById('list')
         const DOMdiv = document.createElement('div')
+        DOMdiv.className = 'container';
         DOMdiv.id = 'book-'+book.id;
         DOMdiv.innerHTML = `
-            <img src="${book.id}" alt="Libro: "${book.id}>
+            <img src="${book.photo}" alt="Libro: ${book.id}">
               <h5>ID ${book.id}</h5> 
               <h5>${book.idModule}</h5> 
               <h6>${book.publisher}</h6>
@@ -35,8 +36,20 @@ export default class ViewClass {
               <p>Estado: ${book.status}</p>
               <p>En venta </p>
               <p>Comentarios: ${book.comments}</p>
+              <div class="botones">
+                <button class="add">
+                <span class="material-icons">add_shopping_cart</span>
+                </button>
+                <button class="edit">
+                    <span class="material-icons">edit</span>
+                </button>
+                <button class="delete">
+                    <span class="material-icons">delete</span>
+                </button>
+              </div>
               `
         DOMselect.appendChild(DOMdiv)
+        return DOMdiv;
 
     }
 
