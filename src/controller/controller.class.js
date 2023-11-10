@@ -39,10 +39,15 @@ export default class Controller {
             let comments = this.view.bookForm.elements['comments'].value
             let idBook = this.view.bookForm.elements['bookId'].value
             if (idBook !== ""){
-                    await this.books.editItem({
-                        idUser: 2, idModule: idModule, publisher: publisher, price ,pages,status,photo: "",comments,soldDate: "",id : idBook})
-                        this.view.renderUpdate({
-                            idUser: 2, idModule: idModule, publisher: publisher, price ,pages,status,photo: "",comments,soldDate: "",id : idBook})
+                // const book =
+                await this.books.editItem({
+                    idUser: 2, idModule: idModule, publisher: publisher, price ,pages,status,photo: "",comments,soldDate: "",id : idBook})
+                let divEdit = this.view.renderUpdate({
+                    idUser: 2, idModule: idModule, publisher: publisher, price ,pages,status,photo: "",comments,soldDate: "",id : idBook})
+                this.addButtonListeners(divEdit,{
+                    idUser: 2, idModule: idModule, publisher: publisher, price ,pages,status,photo: "",comments,soldDate: "",id : idBook})
+
+
             }else {
                 const newBook = await this.books.addItem({
                     idUser: 2, idModule: idModule, publisher: publisher, price ,pages,status,photo: "",comments,soldDate: ""
@@ -51,8 +56,10 @@ export default class Controller {
                 let divBook = this.view.renderNewBook(newBook)
                 this.addButtonListeners(divBook,newBook)
             }
+            this.view.renderForm();
         })
         window.addEventListener('hashchange',(event)=>{
+            this.view.renderForm()
             const newUrl = event.newURL
             if (newUrl.includes('#list')){
                 document.getElementById('list').classList.remove('hidden')
@@ -67,6 +74,7 @@ export default class Controller {
                 document.getElementById('list').classList.add('hidden')
                 document.getElementById('form').classList.add('hidden')
             }
+
         })
     }
 
@@ -90,6 +98,7 @@ export default class Controller {
 
         })
         element.querySelector('.edit').addEventListener('click',async() =>{
+            document.getElementById('form').classList.remove('hidden')
             this.view.renderBookEdit(book)
 
         })

@@ -21,8 +21,10 @@ export default class ViewClass {
             DOMselect.innerHTML += `<option value=${module.code}>${module.cliteral}</option>`
         })*/
     }
+
     renderUpdate(book){
-        document.getElementById('book-'+book.id).innerHTML =
+        const DOMdiv =  document.getElementById('book-' + book.id);
+        DOMdiv.innerHTML =
             `
             <img src="${book.photo}" alt="Libro: ${book.id}">
               <h5>ID ${book.id}</h5> 
@@ -44,7 +46,8 @@ export default class ViewClass {
                     <span class="material-icons">delete</span>
                 </button>
               </div>
-              `
+              `;
+        return DOMdiv;
     }
     renderNewBook(book){
         const DOMselect = document.getElementById('list')
@@ -92,7 +95,6 @@ export default class ViewClass {
         this.messages.appendChild(DOMnewMessage)
     }
     renderBookEdit(book){
-
         this.bookForm.elements['bookId'].parentElement.classList.remove('hidden')  // nota el .elements solo muestra los inputs
         this.bookForm.querySelector('legend').textContent = 'Editar libro'
         this.bookForm.elements['bookId'].className = 'visible'
@@ -101,8 +103,14 @@ export default class ViewClass {
         this.bookForm.elements['publisher'].value = book.publisher
         this.bookForm.elements['price'].value = book.price
         this.bookForm.elements['pages'].value = book.pages
-        this.bookForm.elements['nuevo'].checked = true;   // preguntar this.bookForm.elements[book.status].checked = true;
+        this.bookForm.elements[book.status].checked = true;
         this.bookForm.elements['comments'].value = book.comments
+    }
+
+    renderForm(){
+        document.getElementById('bookForm').reset()
+        this.bookForm.querySelector('legend').textContent = 'Añadir libro'
+        this.bookForm.elements['bookId'].className = 'hidden'
     }
 
 }

@@ -39,8 +39,8 @@ document.querySelector('#app').innerHTML = `
     
    <form id="bookForm">
    <legend class="legend" >Añadir libro</legend>
-   <div id="idBook" class="hidden" >
-    <label for="bookId" >ID:</label>
+   <div id="idBook" class="hidden">
+    <label for="bookId" class="hidden">ID:</label>
     <input type="text" id="bookId"  readonly ><br>
 </div>
   <div>
@@ -69,12 +69,12 @@ document.querySelector('#app').innerHTML = `
   
     <label>Estado:</label>
     <div class="options">
-    <input type="radio" id="nuevo" name="bookStat" value="Nuevo" required>
-        <label for="nuevo">Nuevo</label>
-    <input type="radio"  name="bookStat" id="usado" value="Usado">
-        <label for="usado">Usado</label>
-    <input type="radio" name="bookStat" id="roto" value="Roto">
-        <label for="roto">Roto</label>
+    <input type="radio" id="Nuevo" name="bookStat" value="Nuevo" required>
+        <label for="Nuevo">Nuevo</label>
+    <input type="radio"  name="bookStat" id="Usado" value="Usado">
+        <label for="Usado">Usado</label>
+    <input type="radio" name="bookStat" id="Roto" value="Roto">
+        <label for="Roto">Roto</label>
 
   </div>
 
