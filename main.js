@@ -10,31 +10,39 @@ document.querySelector('#app').innerHTML = `
     <title>Título de la página</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body>
+<body >
 <header>
 
 </header>
+    
+    <nav class="sidebar">
     <div>
     <a href="https://vitejs.dev" target="_blank">
       <img src="/logoBatoi.png" class="logo" alt="Vite logo" />
     </a>
     </div>
-    <nav>
   <ul>
     <li><a href="#list">Ver Libros</a></li>
     <li><a href="#form">Añadir Libro</a></li>
     <li><a href="#about">Acerca de...</a></li>
   </ul>
 </nav>
-<div>
+<div id="message"></div>
+<div class="content">
 <div id="list"> 
     
 </div>
 
 <br>
 
-<div id="form"> 
-    <form id="bookForm">
+<div id="form" > 
+    
+   <form id="bookForm">
+   <legend class="legend" >Añadir libro</legend>
+   <div id="idBook" class="hidden" >
+    <label for="bookId" >ID:</label>
+    <input type="text" id="bookId"  readonly ><br>
+</div>
   <div>
     <label for="id-module">Módulo:</label>
     <select id="id-module">
@@ -57,12 +65,13 @@ document.querySelector('#app').innerHTML = `
     <input type="number" id="pages" required><br>
   </div>
 
-  <div>
+  
   
     <label>Estado:</label>
+    <div class="options">
     <input type="radio" id="nuevo" name="bookStat" value="Nuevo" required>
         <label for="nuevo">Nuevo</label>
-    <input type="radio" name="bookStat" id="usado" value="Usado">
+    <input type="radio"  name="bookStat" id="usado" value="Usado">
         <label for="usado">Usado</label>
     <input type="radio" name="bookStat" id="roto" value="Roto">
         <label for="roto">Roto</label>
@@ -73,13 +82,14 @@ document.querySelector('#app').innerHTML = `
     <label for="comments">Comentarios:</label>
     <textarea id="comments"></textarea>
   </div>
-  <div id="message"></div>
+  
 
   <button type="submit">Añadir</button>
   <button type="reset">Reset</button>
 </form>
 </div>
-<div id="about"> </div>
+<div id="about"><a>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+Odit totam, adipisci iste ducimus id voluptatum voluptatem aut ea vel aperiam magnam officiis non officia tempora dicta veritatis nihil doloremque fugit!</a> </div>
 </div>
 </body>
 </html>

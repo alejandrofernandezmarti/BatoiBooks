@@ -21,29 +21,9 @@ export default class Controller {
         this.view.renderOptionsModule(this.modules.data)
         this.books.data.forEach((book) => {
         let element = this.view.renderNewBook(book)
-            this.addButtonListeners(element,book.id)
+            this.addButtonListeners(element,book)
 
         })
-
-
-
-
-        /* this.view.remove.addEventListener('click',async (event) => {
-              // Aquí poned el código que
-              // - pedirá al usuario que introduzca la id de un libro
-              // - la validará
-              // - le pedirá al modelo que borre ese libro
-              // - una vez hecho lo borrará de la vista
-
-              const bookId = prompt('Introduce una ID')
-              try {
-                  await this.books.removeItem(bookId)
-              }catch (error){
-                  this.view.renderMessage('error',error) // crear método en la vista
-                  return
-              }
-              this.view.renderDeleteBook(bookId);
-          })  */
 
         this.view.bookForm.addEventListener('submit',async (event) => {
             event.preventDefault()
@@ -57,30 +37,61 @@ export default class Controller {
             let pages =this.view.bookForm.elements['pages'].value
             let status = this.view.bookForm.querySelector('input[name="bookStat"]:checked').value;
             let comments = this.view.bookForm.elements['comments'].value
-
-            const newBook = await this.books.addItem({
-                idUser: 2, idModule: idModule, publisher: publisher, price ,pages,status,photo: "",comments,soldDate: ""
-            })
-            document.forms[0].reset()
-            let divBook = this.view.renderNewBook(newBook)
-            this.addButtonListeners(divBook,newBook.id)
-
+            let idBook = this.view.bookForm.elements['bookId'].value
+            if (idBook !== ""){
+                    await this.books.editItem({
+                        idUser: 2, idModule: idModule, publisher: publisher, price ,pages,status,photo: "",comments,soldDate: "",id : idBook})
+                        this.view.renderUpdate({
+                            idUser: 2, idModule: idModule, publisher: publisher, price ,pages,status,photo: "",comments,soldDate: "",id : idBook})
+            }else {
+                const newBook = await this.books.addItem({
+                    idUser: 2, idModule: idModule, publisher: publisher, price ,pages,status,photo: "",comments,soldDate: ""
+                })
+                document.forms[0].reset()
+                let divBook = this.view.renderNewBook(newBook)
+                this.addButtonListeners(divBook,newBook)
+            }
+        })
+        window.addEventListener('hashchange',(event)=>{
+            const newUrl = event.newURL
+            if (newUrl.includes('#list')){
+                document.getElementById('list').classList.remove('hidden')
+                document.getElementById('form').classList.add('hidden')
+                document.getElementById('about').classList.add('hidden')
+            }else if (newUrl.includes('#form')){
+                document.getElementById('form').classList.remove('hidden')
+                document.getElementById('list').classList.add('hidden')
+                document.getElementById('about').classList.add('hidden')
+            }else if (newUrl.includes('#about')){
+                document.getElementById('about').classList.remove('hidden')
+                document.getElementById('list').classList.add('hidden')
+                document.getElementById('form').classList.add('hidden')
+            }
         })
     }
 
-    addButtonListeners(element,bookId){
+    addButtonListeners(element,book){
         element.querySelector('.delete').addEventListener('click',async () =>{
             try {
-                await this.books.removeItem(bookId)
+                await this.books.removeItem(book.id)
             }catch (error){
                 this.view.renderMessage('error',error) // crear método en la vista
                 return
             }
-            this.view.renderDeleteBook(bookId);
+            this.view.renderDeleteBook(book.id);
         })
         element.querySelector('.add').addEventListener('click', async () => {
-            let newBook = await this.books.getItemById(bookId)
-            this.carrito.addItem(newBook)
+            try {
+                this.carrito.addItem(book)
+                this.view.renderMessage('Correct','Añadido correctamente')
+            }catch (Error){
+                this.view.renderMessage('Error','El libro ya se encuentra en el carrito')
+            }
+
+        })
+        element.querySelector('.edit').addEventListener('click',async() =>{
+            this.view.renderBookEdit(book)
+
         })
     }
 
@@ -98,3 +109,20 @@ export default class Controller {
     // sobre la página. Por ejemplo pondrá un escuchador en el formulario para que
     // cuando se envíe coja los datos, los valide y llame a 'addProductToStore'
 }
+
+/* this.view.remove.addEventListener('click',async (event) => {
+              // Aquí poned el código que
+              // - pedirá al usuario que introduzca la id de un libro
+              // - la validará
+              // - le pedirá al modelo que borre ese libro
+              // - una vez hecho lo borrará de la vista
+
+              const bookId = prompt('Introduce una ID')
+              try {
+                  await this.books.removeItem(bookId)
+              }catch (error){
+                  this.view.renderMessage('error',error) // crear método en la vista
+                  return
+              }
+              this.view.renderDeleteBook(bookId);
+          })  */

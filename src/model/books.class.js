@@ -32,6 +32,11 @@ export default class Books {
         }
         return {};
     }
+
+    async editItem(book){
+        await this.bookRepository.changeBook(book)
+    }
+
     async getItemById(Id){
         return await this.bookRepository.getBookById(Id)
 

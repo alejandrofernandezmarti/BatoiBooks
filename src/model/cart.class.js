@@ -1,4 +1,5 @@
 import data from "../../datos.js";
+import Book from "./book.class.js";
 
 
 export default class Cart{
@@ -13,18 +14,12 @@ export default class Cart{
         return this.data.find(Book => Book.id === id )
     }
     addItem(book){
-        try{
-            if (book.id){
-                const existingBook = this.getBookById(book.id);
-                if (!existingBook){
-                    this.data.push(book)
-                    prompt("Añadido maestro")
-                }else {
-                    throw new Error()
-                }
-            }
-        }catch (error){
-            prompt("El libro ya se encuentra en el carrito")
+        const existingBook = this.getBookById(book.id);
+        if (!existingBook){
+            let newBook = new Book(book);
+            this.data.push(newBook)
+        }else {
+            throw new Error("El libro ya se encuentra en el carrito")
         }
     }
     removeItem(Id){

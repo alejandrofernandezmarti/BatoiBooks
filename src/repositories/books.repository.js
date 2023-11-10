@@ -38,7 +38,7 @@ export default class BooksRepository{
 
     async changeBook(book){
         let sentencia = {"idUser": book.idUser,"idModule":book.idModule ,"publisher":book.publisher,"price": book.price, "pages": book.pages, "status": book.status, "photo": book.photo, "comments": book.comments, "soldDate": book.soldDate,"id":book.id}
-        const response = await fetch(SERVER + "/books/"+book.id,{method:'PUT',body: JSON.stringify(sentencia), headers:{'Content-Type': 'application/json'}})
+        const response = await fetch(SERVER + '/books/' + book.id,{method:'PATCH',body: JSON.stringify(sentencia), headers:{'Content-Type': 'application/json'}})
         if (!response.ok) {
             throw `Error ${response.status} de la BBDD: ${response.statusText}`
         }
