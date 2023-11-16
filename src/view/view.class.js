@@ -81,6 +81,23 @@ export default class ViewClass {
 
     }
 
+    validateForm(){
+        if (this.bookForm.checkValidity()){
+            return true
+        }
+       // inputNames = ['id-module',]
+        // hacer un foreach para las comprobaciones
+
+
+        const input = this.bookForm.elements['id-module']
+        const spanError = inputModule.parentElement.querySelector('span.error')
+        if (input.checkValidity()){
+            spanError.textContent = "";
+        }else {
+            spanError.textContent = input.validationMessage;
+        }
+    }
+
     renderDeleteBook(id){
         const DOMbook = document.getElementById('book-'+id)
         DOMbook.parentElement.removeChild(DOMbook)
