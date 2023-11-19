@@ -27,6 +27,10 @@ export default class Controller {
 
         this.view.bookForm.addEventListener('submit',async (event) => {
             event.preventDefault()
+            if (!this.view.validateForm()){
+                return
+            }
+
             // Aquí poned el código que
             // - cogerá los datos del formulario
             // - pedirá al modelo que añada ese libro
@@ -49,6 +53,11 @@ export default class Controller {
 
 
             }else {
+
+                if (await this.books.getItemById( 16)){
+                    prompt('Already exists')
+                    return
+                }
                 const newBook = await this.books.addItem({
                     idUser: 2, idModule: idModule, publisher: publisher, price ,pages,status,photo: "",comments,soldDate: ""
                 })

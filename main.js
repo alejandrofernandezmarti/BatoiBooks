@@ -36,9 +36,9 @@ document.querySelector('#app').innerHTML = `
 
 <br>
 
-<div id="form" > 
+<div id="form"  > 
     
-   <form id="bookForm">
+   <form id="bookForm" novalidate>
    <legend class="legend" >Añadir libro</legend>
    <div id="idBook" class="hidden">
     <label for="bookId" class="hidden">ID:</label>
@@ -48,22 +48,26 @@ document.querySelector('#app').innerHTML = `
     <label for="id-module">Módulo:</label>
     <select id="id-module">
       <option>- Selecciona un módulo -</option>
-    </select><br>
+    </select>
+    <span class="error"></span><br>
   </div>
 
   <div>
     <label for="publisher">Editorial:</label>
-    <input type="text" id="publisher" required><br>
+    <input type="text" id="publisher" required ><br>
+    <span class="error"></span>
   </div>
 
   <div>
     <label for="price">Precio:</label>
-    <input type="number" id="price" required><br>
+    <input type="number" id="price" required min="0" step="0.01" pattern="\\d+(\\.\\d{2})?"><br>
+    <span class="error"></span>
   </div>
 
   <div>
     <label for="pages">Páginas:</label>
-    <input type="number" id="pages" required><br>
+    <input type="number" id="pages" required min="0"><br>
+    <span class="error"></span>
   </div>
 
   
@@ -76,7 +80,7 @@ document.querySelector('#app').innerHTML = `
         <label for="Usado">Usado</label>
     <input type="radio" name="bookStat" id="Roto" value="Roto">
         <label for="Roto">Roto</label>
-
+    <span class="error"></span>
   </div>
 
   <div>

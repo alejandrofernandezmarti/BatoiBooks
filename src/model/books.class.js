@@ -20,6 +20,9 @@ export default class Books {
         return newBook;
     }
 
+    async bookAlreadyExists(idModule,id){
+        return await this.bookRepository.bookAlreadyExists(idModule,id)
+    }
 
 
     async removeItem(id){

@@ -85,17 +85,16 @@ export default class ViewClass {
         if (this.bookForm.checkValidity()){
             return true
         }
-       // inputNames = ['id-module',]
-        // hacer un foreach para las comprobaciones
-
-
-        const input = this.bookForm.elements['id-module']
-        const spanError = inputModule.parentElement.querySelector('span.error')
-        if (input.checkValidity()){
-            spanError.textContent = "";
-        }else {
-            spanError.textContent = input.validationMessage;
-        }
+       const inputNames = ['id-module','publisher','price','pages'] // añadir ,'bookStat'
+        inputNames.forEach(inputModule =>{
+            const input = this.bookForm.elements[inputModule]
+            const spanError = input.parentElement.querySelector('span.error')
+            if (input.checkValidity()){
+                spanError.textContent = "";
+            }else {
+                spanError.textContent = input.validationMessage;
+            }
+        })
     }
 
     renderDeleteBook(id){

@@ -44,6 +44,20 @@ export default class BooksRepository{
         }
         return await response.json();
     }
+    async bookAlreadyExists(idModule, id) {
+        try {
+            let response =  await fetch(SERVER + "/books?idUser=" + id + "&idModule=" + idModule.idModule);
+            if (!response.ok) {
+                throw `Error ${response.status} de la BBDD: ${response.statusText}`;
+            }
+            const data = await response.json();
+            return data.length > 0; // Devuelve true si hay datos, false si está vacío
+        } catch (error) {
+            console.error("Error al verificar si el libro existe:", error);
+            return false; // En caso de error, devuelve false
+        }
+    }
+
     async updatePriceOfBook(id,price){
         let campos = {"price":price}
         const response = await fetch(SERVER+ '/books/' + id,{method:'PATCH',body: JSON.stringify(campos), headers:{'Content-Type': 'application/json'}

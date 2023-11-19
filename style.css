@@ -319,3 +319,6 @@ select {
 #about a{
   color: white;
 }
+.error{
+  color: red;
+}
