@@ -27,44 +27,47 @@ export default class Controller {
 
         this.view.bookForm.addEventListener('submit',async (event) => {
             event.preventDefault()
+
+            const idUser = 2;
+            const idModuleSelect = this.view.bookForm.elements['id-module']
+            try {
+                if (await this.books.bookAlreadyExists(idModuleSelect.value,idUser)){
+                    idModuleSelect.setCustomValidity('Ya has añadido ese libro')
+                }else {
+                    idModuleSelect.setCustomValidity('')
+                }
+            }catch (error){
+                 this.view.renderErrorMessage('error', 'Error comprobando si existe el libro: '+ error)
+            }
+
             if (!this.view.validateForm()){
                 return
             }
 
-            // Aquí poned el código que
-            // - cogerá los datos del formulario
-            // - pedirá al modelo que añada ese libro
-            // - una vez hecho lo añadirá a la vista y borrará el formulario
-            let idModule = this.view.bookForm.elements['id-module'].value
-            let publisher = this.view.bookForm.elements['publisher'].value
-            let price = this.view.bookForm.elements['price'].value
-            let pages =this.view.bookForm.elements['pages'].value
-            let status = this.view.bookForm.querySelector('input[name="bookStat"]:checked').value;
-            let comments = this.view.bookForm.elements['comments'].value
-            let idBook = this.view.bookForm.elements['bookId'].value
-            if (idBook !== ""){
-                // const book =
-                await this.books.editItem({
-                    idUser: 2, idModule: idModule, publisher: publisher, price ,pages,status,photo: "",comments,soldDate: "",id : idBook})
-                let divEdit = this.view.renderUpdate({
-                    idUser: 2, idModule: idModule, publisher: publisher, price ,pages,status,photo: "",comments,soldDate: "",id : idBook})
-                this.addButtonListeners(divEdit,{
-                    idUser: 2, idModule: idModule, publisher: publisher, price ,pages,status,photo: "",comments,soldDate: "",id : idBook})
+            const payload = this.view.getBookFormValues();
+            payload.price = Number(payload.price)
+            payload.pages = Number(payload.pages)
+            payload.idUser = idUser
 
+            const editing = payload.id
 
-            }else {
+            let book = {}
 
-                if (await this.books.getItemById( 16)){
-                    prompt('Already exists')
-                    return
-                }
-                const newBook = await this.books.addItem({
-                    idUser: 2, idModule: idModule, publisher: publisher, price ,pages,status,photo: "",comments,soldDate: ""
-                })
-                document.forms[0].reset()
-                let divBook = this.view.renderNewBook(newBook)
-                this.addButtonListeners(divBook,newBook)
+            try {
+                book = editing
+                    ? await this.books.editItem(payload)
+                    : await this.books.addItem(payload)
+            }catch (error){
+                this.view.renderErrorMessage('error', 'Error guardando el libro: '+ error)
+                return
             }
+            if (editing){
+                this.view.renderBookEdit(book)
+            }else {
+                const bookHtml = this.view.renderNewBook(book)
+                this.addButtonListeners(bookHtml,book)
+            }
+
             this.view.renderForm();
         })
         window.addEventListener('hashchange',(event)=>{

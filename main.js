@@ -43,11 +43,12 @@ document.querySelector('#app').innerHTML = `
    <div id="idBook" class="hidden">
     <label for="bookId" class="hidden">ID:</label>
     <input type="text" id="bookId"  readonly ><br>
+    <span class="error"></span>
 </div>
   <div>
     <label for="id-module">Módulo:</label>
-    <select id="id-module">
-      <option>- Selecciona un módulo -</option>
+    <select id="id-module" required>
+      <option value="">- Selecciona un módulo -</option>
     </select>
     <span class="error"></span><br>
   </div>
@@ -86,6 +87,7 @@ document.querySelector('#app').innerHTML = `
   <div>
     <label for="comments">Comentarios:</label>
     <textarea id="comments"></textarea>
+    <span class="error"></span>
   </div>
   
 

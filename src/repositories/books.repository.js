@@ -46,7 +46,7 @@ export default class BooksRepository{
     }
     async bookAlreadyExists(idModule, id) {
         try {
-            let response =  await fetch(SERVER + "/books?idUser=" + id + "&idModule=" + idModule.idModule);
+            let response =  await fetch(SERVER + "/books?idUser=" + id + "&idModule=" + idModule);
             if (!response.ok) {
                 throw `Error ${response.status} de la BBDD: ${response.statusText}`;
             }

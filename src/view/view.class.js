@@ -83,18 +83,35 @@ export default class ViewClass {
 
     validateForm(){
         if (this.bookForm.checkValidity()){
-            return true
+            document.querySelectorAll('#bookForm span.error').forEach((span)=>{
+                span.textContent='';
+            })
+           return true;
         }
-       const inputNames = ['id-module','publisher','price','pages'] // añadir ,'bookStat'
-        inputNames.forEach(inputModule =>{
-            const input = this.bookForm.elements[inputModule]
-            const spanError = input.parentElement.querySelector('span.error')
-            if (input.checkValidity()){
-                spanError.textContent = "";
+
+        Array.from(this.bookForm.elements).forEach((item)=>{
+            const spanError = item.parentElement.querySelector('span.error')
+            if (item.checkValidity()){
+                spanError.textContent = '';
             }else {
-                spanError.textContent = input.validationMessage;
+                spanError.textContent = item.validationMessage
             }
         })
+
+    }
+
+    customError(input){
+        if (input.checkValidity()){
+            return '';
+        }
+        if (input.validity.valueMissing){
+            return 'El campo ' + input.name + ' es obligatorio'
+        }
+        if (input.validity.typeMismatch){
+            return 'El campo ' + input.name + ' debe ser ' + input.type;
+        }
+
+        // seguir
     }
 
     renderDeleteBook(id){
@@ -127,6 +144,37 @@ export default class ViewClass {
         document.getElementById('bookForm').reset()
         this.bookForm.querySelector('legend').textContent = 'Añadir libro'
         this.bookForm.elements['bookId'].className = 'hidden'
+    }
+    renderErrorMessage(type, message) {
+        const messageUI = document.createElement('div')
+        messageUI.className = type + ' alert alert-danger alert-dismissible'
+        messageUI.setAttribute('role', 'alert')
+        messageUI.innerHTML = `
+    ${message}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="this.parentElement.remove()">x</button>
+    `
+        this.messages.appendChild(messageUI)
+        window.scroll(0,0)
+    }
+
+    getBookFormValues(){
+        let idBook = this.bookForm.elements['bookId'].value
+        let idModule = this.bookForm.elements['id-module'].value
+        let publisher = this.bookForm.elements['publisher'].value
+        let price = this.bookForm.elements['price'].value
+        let pages =this.bookForm.elements['pages'].value
+        let status = this.bookForm.querySelector('input[name="bookStat"]:checked').value;
+        let comments = this.bookForm.elements['comments'].value
+
+        return{
+            idBook,
+            idModule,
+            publisher,
+            price,
+            pages,
+            status,
+            comments
+        }
     }
 
 }
